@@ -14,8 +14,7 @@ spec:
     spec:
       containers:
         - name: todo-app
-          image: todo-app:1.0
-          imagePullPolicy: IfNotPresent
+          image: arianesec/todo-app:1.0
           env:
             - name: PORT
               value: "6000"

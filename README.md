@@ -12,12 +12,7 @@ You will not have access to the port when it is running in Kubernetes yet. We wi
 ### Deployment
 
 ```bash
-
-# Build the image
-docker build -t todo-app:1.0 .
-
-# Make the image available in the cluster
-k3d image import todo-app:1.0
+cd todo_app
 
 # Deploy
 kubectl apply -f manifests/deployment.yaml
@@ -32,6 +27,13 @@ kubectl logs -f deployment/todo-app
 ```
 $ kubectl logs -f deployment/todo-app
 Server started in port 3000
+```
+
+To build and publish the image:
+
+```bash
+docker build -t arianesec/todo-app:1.0 .
+docker push arianesec/todo-app:1.0
 ```
 
 ### Changing the port
