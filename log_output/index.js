@@ -1,8 +1,12 @@
-const { randomUUID } = require('crypto');
+const http = require('http');
 
-const id = randomUUID();
+const port = process.env.PORT || 3000;
 
-const log = () => console.log(`${new Date().toISOString()}: ${id}`);
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('Todo app\n');
+});
 
-log();
-setInterval(log, 5000);
+server.listen(port, () => {
+  console.log(`Server started in port ${port}`);
+});
