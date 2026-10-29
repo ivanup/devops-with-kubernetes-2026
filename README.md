@@ -32,6 +32,7 @@ kubectl logs -f deployment/todo-app
 ```
 $ kubectl logs -f deployment/todo-app
 Server started in port 3000
+```
 
 ### Changing the port
 
