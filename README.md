@@ -1,56 +1,50 @@
-## 1.4. The project, step2
+## 1.1. Getting started
 
 Instructions
-Create a deployment.yaml for the course project (that you started in Exercise 1.2.)
+Exercises can be done with any language and framework you want.
 
-You won't have access to the port yet but that'll come soon..
+Create an application that generates a random string on startup, stores this string into memory, and outputs it every 5 seconds with a timestamp. e.g.
 
-**Solution:** a Node.js HTTP server (`todo_app/index.js`) that reads `process.env.PORT` (default 3000) and logs `Server started in port NNNN` when it starts listening. The port is set in the `Deployment` through an `env` entry (`PORT=5000`), so it can be changed by editing `manifests/deployment.yaml` and re-applying it, without rebuilding the image.
+2020-03-30T12:15:17.705Z: 8523ecb1-c716-4cb6-a044-b9e83bb98e43
+2020-03-30T12:15:22.705Z: 8523ecb1-c716-4cb6-a044-b9e83bb98e43
+
+Deploy it into your Kubernetes cluster and confirm that it's running with kubectl logs ...
+
+**Solution:** a Node.js app (`log_output/index.js`) that generates a UUID with `crypto.randomUUID()` once on startup and prints it every 5 seconds using `setInterval`. It is deployed with a single-replica `Deployment`.
 
 ### Deployment
 
+The image is published on Docker Hub: [`arianesec/log-output:1.0`](https://hub.docker.com/r/arianesec/log-output).
+
+
 ```bash
-cd todo_app
+cd log_output
 
 # Deploy
+kubectl create deployment log-output --image=arianesec/log-output:1.0 
 kubectl apply -f manifests/deployment.yaml
 
 # Confirm it's running
 kubectl get pods
-kubectl logs -f deployment/todo-app
-
+kubectl get deployments
+kubectl logs -f deployment/log-output
 ```
+
 ### Output
 
 ```
-$ kubectl logs -f deployment/todo-app
-Server started in port 3000
+$ kubectl logs -f deployment/log-output
+2026-10-29T15:09:28.404Z: b8f0bfbb-2892-4733-b13f-8cc32b1238b2
+2026-10-29T15:09:33.441Z: b8f0bfbb-2892-4733-b13f-8cc32b1238b2
+2026-10-29T15:09:38.445Z: b8f0bfbb-2892-4733-b13f-8cc32b1238b2
+2026-10-29T15:09:43.447Z: b8f0bfbb-2892-4733-b13f-8cc32b1238b2
+2026-10-29T15:09:48.451Z: b8f0bfbb-2892-4733-b13f-8cc32b1238b2
+2026-10-29T15:09:53.456Z: b8f0bfbb-2892-4733-b13f-8cc32b1238b2
 ```
 
 To build and publish the image:
 
 ```bash
-docker build -t arianesec/todo-app:1.0 .
-docker push arianesec/todo-app:1.0
+docker build -t arianesec/log-output:1.0 .
+docker push arianesec/log-output:1.0
 ```
-
-### Changing the port
-
-Edit the `env` entry in `manifests/deployment.yaml` and apply it again:
-
-```yaml
-env:
-  - name: PORT
-    value: "6000"
-```
-
-```bash
-kubectl apply -f manifests/deployment.yaml
-kubectl rollout status deployment/todo-app
-```
-
-### Output
-
-```
-$ kubectl logs -f deployment/todo-app
-Server started in port 6000
