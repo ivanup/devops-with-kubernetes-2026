@@ -27,6 +27,9 @@ kubectl get pods
 kubectl logs -f deployment/todo-app
 
 ```
+### Output
+
+```
 $ kubectl logs -f deployment/todo-app
 Server started in port 3000
 
