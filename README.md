@@ -1,92 +1,47 @@
-## 1.6. The project, step 4
+## 1.7. External access with Ingress
 
 Instructions
-Use a NodePort Service to enable access to the project.
+"Log output" application currently outputs a timestamp and a random string (that it creates on startup) to the logs.
 
-**Solution:** a Node.js HTTP server (`todo_app/index.js`) that reads `process.env.PORT` (default 3000) and logs `Server started in port NNNN` when it starts listening. The port is set in the `Deployment` through an `env` entry (`PORT=5000`), so it can be changed by editing `manifests/deployment.yaml` and re-applying it, without rebuilding the image.
+Add an endpoint to request the current status (timestamp and the random string) and an Ingress so that you can access it with a browser.
+
+You can just store the random string to the memory.
+
+**Solution:** a Node.js app (`log_output/index.js`) that generates a UUID with `crypto.randomUUID()` once on startup and prints it every 5 seconds using `setInterval`. It is deployed with a single-replica `Deployment`.
 
 ### Deployment
 
+The image is published on Docker Hub: [`arianesec/log-output:1.7`](https://hub.docker.com/r/arianesec/log-output).
+
+
 ```bash
-cd the_project/todo_app
+cd log_output
 
 # Deploy
-k3d cluster create --port 8082:30080@agent:0 -p 8081:80@loadbalancer --agents 2
-kubectl apply -f manifests/deployment.yaml
-kubectl apply -f manifests/service.yaml
-
+k3d cluster create -p 8081:80@loadbalancer --agents 2
+kubectl apply -f manifests
 
 # Confirm it's running
-kubectl get pods
-kubectl logs -f deployment/todo-app
-
+kubectl get pods,svc,ing
+kubectl logs -f deployment/log-output
 ```
+
 ### Output
 
 ```
-$ kubectl logs -f deployment/todo-app
-Server started in port 3000
+$ kubectl get svc,ing
+NAME                     TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/kubernetes       ClusterIP   10.43.0.1       <none>        443/TCP    11m
+service/log-output-svc   ClusterIP   10.43.207.133   <none>        2345/TCP   11m
+
+NAME                                           CLASS    HOSTS   ADDRESS                            PORTS   AGE
+ingress.networking.k8s.io/log-output-ingress   <none>   *       172.18.0.2,172.18.0.3,172.18.0.4   80      11m
+
 ```
 
 To build and publish the image:
 
 ```bash
-docker build -t arianesec/todo-app:1.0 .
-docker push arianesec/todo-app:1.0
+docker build -t arianesec/log-output:1.7 .
+docker push arianesec/log-output:1.7
 ```
-
-### Changing the port
-
-Edit the `env` entry in `manifests/deployment.yaml` and apply it again:
-
-```yaml
-env:
-  - name: PORT
-    value: "6000"
-```
-
-```bash
-kubectl apply -f manifests/deployment.yaml
-kubectl rollout status deployment/todo-app
-```
-
-### Output
-
-```
-$ kubectl logs -f deployment/todo-app
-Server started in port 6000
-```
-
-### Checking access using kubectl port-forward
-
-```
-$ kubectl port-forward todo-app-5875fd6d55-dqnng 6005:6000
-Forwarding from 127.0.0.1:6005 -> 6000
-Forwarding from [::1]:6005 -> 6000
-
-In other terminal
-curl http://localhost:6005
-Todo app
-
-$ kubectl port-forward todo-app-5875fd6d55-dqnng 6005:6000
-Forwarding from 127.0.0.1:6005 -> 6000
-Forwarding from [::1]:6005 -> 6000
-Handling connection for 6005
-Handling connection for 6005
-Handling connection for 6005
-Handling connection for 6005
-```
-
-### Checking access using NodePort Service
-
-```
-localhost:8082
-↓
-k3d load balancer
-↓
-node:30080 (NodePort)
-↓
-Pod container:6000
-
-curl http:/localhost:8082
-Todo app

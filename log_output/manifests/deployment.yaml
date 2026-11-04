@@ -14,4 +14,7 @@ spec:
     spec:
       containers:
         - name: log-output
-          image: arianesec/log-output:1.0
+          image: arianesec/log-output:1.7
+          env:
+            - name: PORT
+              value: "3000"
