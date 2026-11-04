@@ -1,11 +1,7 @@
-## 1.5. The project, step 3
+## 1.6. The project, step 4
 
 Instructions
-Make the project respond something to a GET request sent to the / url of the project. A simple HTML page is good, or you can deploy something more complex, like a single-page application.
-
-See here(opens in a new tab) how you can define environment variables for containers.
-
-Use kubectl port-forward to confirm that the project is accessible and works in the cluster by using a browser to access the project.
+Use a NodePort Service to enable access to the project.
 
 **Solution:** a Node.js HTTP server (`todo_app/index.js`) that reads `process.env.PORT` (default 3000) and logs `Server started in port NNNN` when it starts listening. The port is set in the `Deployment` through an `env` entry (`PORT=5000`), so it can be changed by editing `manifests/deployment.yaml` and re-applying it, without rebuilding the image.
 
@@ -15,7 +11,10 @@ Use kubectl port-forward to confirm that the project is accessible and works in 
 cd the_project/todo_app
 
 # Deploy
+k3d cluster create --port 8082:30080@agent:0 -p 8081:80@loadbalancer --agents 2
 kubectl apply -f manifests/deployment.yaml
+kubectl apply -f manifests/service.yaml
+
 
 # Confirm it's running
 kubectl get pods
@@ -76,3 +75,18 @@ Handling connection for 6005
 Handling connection for 6005
 Handling connection for 6005
 Handling connection for 6005
+```
+
+### Checking access using NodePort Service
+
+```
+localhost:8082
+↓
+k3d load balancer
+↓
+node:30080 (NodePort)
+↓
+Pod container:6000
+
+curl http:/localhost:8082
+Todo app
