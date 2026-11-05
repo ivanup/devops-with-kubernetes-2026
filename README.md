@@ -1,13 +1,7 @@
-## 1.7. External access with Ingress
+## 1.8. The project, step 5
 
 Instructions
-"Log output" application currently outputs a timestamp and a random string (that it creates on startup) to the logs.
-
-Add an endpoint to request the current status (timestamp and the random string) and an Ingress so that you can access it with a browser.
-
-You can just store the random string to the memory.
-
-**Solution:** a Node.js app (`log_output/index.js`) that generates a UUID with `crypto.randomUUID()` once on startup and prints it every 5 seconds using `setInterval`. It is deployed with a single-replica `Deployment`.
+Switch to using Ingress instead of NodePort to access the project. You can delete the Ingress of the "Log output" application so they don't interfere with this exercise. We'll look more into paths and routing in the next exercise, and at that point, you can configure the project to run with the "Log output" application side by side.
 
 ### Deployment
 
@@ -15,7 +9,7 @@ The image is published on Docker Hub: [`arianesec/log-output:1.7`](https://hub.d
 
 
 ```bash
-cd log_output
+cd the_project/todo_app
 
 # Deploy
 k3d cluster create -p 8081:80@loadbalancer --agents 2
@@ -23,25 +17,31 @@ kubectl apply -f manifests
 
 # Confirm it's running
 kubectl get pods,svc,ing
-kubectl logs -f deployment/log-output
+kubectl logs -f deployment/todo_app
 ```
 
 ### Output
 
 ```
-$ kubectl get svc,ing
-NAME                     TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
-service/kubernetes       ClusterIP   10.43.0.1       <none>        443/TCP    11m
-service/log-output-svc   ClusterIP   10.43.207.133   <none>        2345/TCP   11m
+$ kubectl get pods,svc,ing
+NAME                            READY   STATUS    RESTARTS   AGE
+pod/todo-app-7c9c74fcb9-rsb48   1/1     Running   0          5m41s
 
-NAME                                           CLASS    HOSTS   ADDRESS                            PORTS   AGE
-ingress.networking.k8s.io/log-output-ingress   <none>   *       172.18.0.2,172.18.0.3,172.18.0.4   80      11m
+NAME                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/kubernetes     ClusterIP   10.43.0.1       <none>        443/TCP    6h55m
+service/todo-app-svc   ClusterIP   10.43.247.159   <none>        2345/TCP   5m41s
+
+NAME                                         CLASS     HOSTS   ADDRESS                            PORTS   AGE
+ingress.networking.k8s.io/todo-app-ingress   traefik   *       172.18.0.2,172.18.0.3,172.18.0.4   80      5m41s
+
+curl http://localhost:8081
+Todo app
 
 ```
 
 To build and publish the image:
 
 ```bash
-docker build -t arianesec/log-output:1.7 .
-docker push arianesec/log-output:1.7
+docker build -t arianesec/todo-app:1.0 .
+docker push arianesec/todo-app:1.0
 ```
