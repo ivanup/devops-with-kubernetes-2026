@@ -1,43 +1,30 @@
-## 1.3. Declarative approach
+<div align="center">
 
-Instructions
-In your "Log output" application, create a folder for manifests and move your deployment into a declarative file.
+# 🚀 DevOps with Kubernetes 2026
 
-Make sure everything still works by restarting and following logs.
+<p align="center">
+  <em>Solutions and practical projects from the DevOps with Kubernetes course</em>
+</p>
 
-**Solution:** a Node.js app (`log_output/index.js`) that generates a UUID with `crypto.randomUUID()` once on startup and prints it every 5 seconds using `setInterval`. It is deployed with a single-replica `Deployment`.
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)](https://kubernetes.io/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
 
-### Deployment
+</div>
 
-The image is published on Docker Hub: [`arianesec/log-output:1.0`](https://hub.docker.com/r/arianesec/log-output).
+---
 
+## 📚 Chapter 2: Kubernetes basics
 
-```bash
-cd log_output
+Explore the source code and Kubernetes manifests developed in each part of this chapter:
 
-# Deploy
-kubectl apply -f manifests/deployment.yaml
+| Exercise / Version | Quick Description | Tag Link |
+| :--- | :--- | :--- |
+| **1.1** | Getting started | [View Tag 1.1](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.1) |
+| **1.2** | The project, step 1 | [View Tag 1.2](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.2) |
+| **1.3** | Declarative approach | [View Tag 1.3](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.3) |
+---
 
-# Confirm it's running
-kubectl get pods
-kubectl logs -f deployment/log-output
-```
-
-### Output
-
-```
-$ kubectl logs -f deployment/log-output
-2026-10-29T15:09:28.404Z: b8f0bfbb-2892-4733-b13f-8cc32b1238b2
-2026-10-29T15:09:33.441Z: b8f0bfbb-2892-4733-b13f-8cc32b1238b2
-2026-10-29T15:09:38.445Z: b8f0bfbb-2892-4733-b13f-8cc32b1238b2
-2026-10-29T15:09:43.447Z: b8f0bfbb-2892-4733-b13f-8cc32b1238b2
-2026-10-29T15:09:48.451Z: b8f0bfbb-2892-4733-b13f-8cc32b1238b2
-2026-10-29T15:09:53.456Z: b8f0bfbb-2892-4733-b13f-8cc32b1238b2
-```
-
-To build and publish the image:
-
-```bash
-docker build -t arianesec/log-output:1.0 .
-docker push arianesec/log-output:1.0
-```
+<div align="center">
+  <small>Developed with 💙 by <a href="https://github.com/ivanup">ivanup</a></small>
+</div>
