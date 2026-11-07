@@ -1,92 +1,33 @@
-## 1.6. The project, step 4
+<div align="center">
 
-Instructions
-Use a NodePort Service to enable access to the project.
+# 🚀 DevOps with Kubernetes 2026
 
-**Solution:** a Node.js HTTP server (`todo_app/index.js`) that reads `process.env.PORT` (default 3000) and logs `Server started in port NNNN` when it starts listening. The port is set in the `Deployment` through an `env` entry (`PORT=5000`), so it can be changed by editing `manifests/deployment.yaml` and re-applying it, without rebuilding the image.
+<p align="center">
+  <em>Solutions and practical projects from the DevOps with Kubernetes course</em>
+</p>
 
-### Deployment
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)](https://kubernetes.io/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
 
-```bash
-cd the_project/todo_app
+</div>
 
-# Deploy
-k3d cluster create --port 8082:30080@agent:0 -p 8081:80@loadbalancer --agents 2
-kubectl apply -f manifests/deployment.yaml
-kubectl apply -f manifests/service.yaml
+---
 
+## 📚 Chapter 2: Kubernetes basics
 
-# Confirm it's running
-kubectl get pods
-kubectl logs -f deployment/todo-app
+Explore the source code and Kubernetes manifests developed in each part of this chapter:
 
-```
-### Output
+| Exercise / Version | Quick Description | Tag Link |
+| :--- | :--- | :--- |
+| **1.1** | Getting started | [View Tag 1.1](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.1) |
+| **1.2** | The project, step 1 | [View Tag 1.2](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.2) |
+| **1.3** | Declarative approach | [View Tag 1.3](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.3) |
+| **1.4** | The project, step 2 | [View Tag 1.4](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.4) |
+| **1.5** | The project, step 3 | [View Tag 1.5](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.5) |
+| **1.6** | The project, step 4 | [View Tag 1.6](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.6) |
+---
 
-```
-$ kubectl logs -f deployment/todo-app
-Server started in port 3000
-```
-
-To build and publish the image:
-
-```bash
-docker build -t arianesec/todo-app:1.0 .
-docker push arianesec/todo-app:1.0
-```
-
-### Changing the port
-
-Edit the `env` entry in `manifests/deployment.yaml` and apply it again:
-
-```yaml
-env:
-  - name: PORT
-    value: "6000"
-```
-
-```bash
-kubectl apply -f manifests/deployment.yaml
-kubectl rollout status deployment/todo-app
-```
-
-### Output
-
-```
-$ kubectl logs -f deployment/todo-app
-Server started in port 6000
-```
-
-### Checking access using kubectl port-forward
-
-```
-$ kubectl port-forward todo-app-5875fd6d55-dqnng 6005:6000
-Forwarding from 127.0.0.1:6005 -> 6000
-Forwarding from [::1]:6005 -> 6000
-
-In other terminal
-curl http://localhost:6005
-Todo app
-
-$ kubectl port-forward todo-app-5875fd6d55-dqnng 6005:6000
-Forwarding from 127.0.0.1:6005 -> 6000
-Forwarding from [::1]:6005 -> 6000
-Handling connection for 6005
-Handling connection for 6005
-Handling connection for 6005
-Handling connection for 6005
-```
-
-### Checking access using NodePort Service
-
-```
-localhost:8082
-↓
-k3d load balancer
-↓
-node:30080 (NodePort)
-↓
-Pod container:6000
-
-curl http:/localhost:8082
-Todo app
+<div align="center">
+  <small>Developed with 💙 by <a href="https://github.com/ivanup">ivanup</a></small>
+</div>
