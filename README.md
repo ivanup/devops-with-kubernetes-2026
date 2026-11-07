@@ -1,57 +1,37 @@
-## 1.9. More services
+<div align="center">
 
-Instructions
-Develop a second application that simply responds with "pong 0" to a GET request and increases a counter (the 0) so that you can see how many requests have been sent. The counter should be in memory so it may reset at some point. Create a new deployment for it and have it share ingress with "Log output" application. Route requests directed '/pingpong' to it.
+# 🚀 DevOps with Kubernetes 2026
 
-In future exercises, this second application will be referred to as "ping-pong application". It will be used with "Log output" application.
+<p align="center">
+  <em>Solutions and practical projects from the DevOps with Kubernetes course</em>
+</p>
 
-The ping-pong application will need to listen to requests on '/pingpong', so you may have to make changes to its code. This can be avoided by configuring the Ingress to rewrite the path, but we will leave that as an optional exercise. You can check out https://kubernetes.io/docs/concepts/services-networking/ingress/#the-ingress-resource(opens in a new tab)
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)](https://kubernetes.io/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
 
-### Deployment
+</div>
 
-The image is published on Docker Hub: [`arianesec/log-output:1.7`](https://hub.docker.com/r/arianesec/log-output) [`arianesec/pingpong:1.9`](https://hub.docker.com/r/arianesec/pingpong).
+---
 
+## 📚 Chapter 2: Kubernetes basics
 
-```bash
-cd pingpong_log_output
+Explore the source code and Kubernetes manifests developed in each part of this chapter:
 
-# Deploy
-k3d cluster create -p 8081:80@loadbalancer --agents 2
-kubectl apply -f manifests
+| Exercise / Version | Quick Description | Tag Link |
+| :--- | :--- | :--- |
+| **1.1** | Getting started | [View Tag 1.1](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.1) |
+| **1.2** | The project, step 1 | [View Tag 1.2](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.2) |
+| **1.3** | Declarative approach | [View Tag 1.3](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.3) |
+| **1.4** | The project, step2 | [View Tag 1.4](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.4) |
+| **1.5** | The project, step 3 | [View Tag 1.5](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.5) |
+| **1.6** | The project, step 4 | [View Tag 1.6](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.6) |
+| **1.7** | External access with Ingress | [View Tag 1.7](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.7) |
+| **1.8** | The project, step 5 | [View Tag 1.8](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.8) |
+| **1.9** | More services | [View Tag 1.9](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.9) |
 
-# Confirm it's running
-kubectl get pods,svc,ing
-```
+---
 
-### Output
-
-```
-$ kubectl get pods,svc,ing
-NAME                              READY   STATUS    RESTARTS   AGE
-pod/log-output-5c8bf797d9-scchd   1/1     Running   0          28s
-pod/pingpong-d56d6b766-6m6qf      1/1     Running   0          28s
-
-NAME                     TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
-service/kubernetes       ClusterIP   10.43.0.1      <none>        443/TCP    73m
-service/log-output-svc   ClusterIP   10.43.252.49   <none>        2345/TCP   28s
-service/pingpong-svc     ClusterIP   10.43.212.26   <none>        2345/TCP   28s
-
-NAME                                       CLASS     HOSTS   ADDRESS                            PORTS   AGE
-ingress.networking.k8s.io/shared-ingress   traefik   *       172.18.0.2,172.18.0.3,172.18.0.4   80      28s
-
-curl http://localhost:8081
-2026-11-05T02:47:34.826Z: dc17afb5-c404-44eb-9ea0-8f107e0e8a1d
-
-curl http://localhost:8081/pingpong
-pong 0
-
-curl http://localhost:8081/pingpong
-pong 10
-```
-
-To build and publish the image:
-
-```bash
-docker build -t arianesec/pingpong:1.9 .
-docker push arianesec/pingpong:1.9
-```
+<div align="center">
+  <small>Developed with 💙 by <a href="https://github.com/ivanup">ivanup</a></small>
+</div>
