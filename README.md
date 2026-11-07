@@ -1,47 +1,34 @@
-## 1.7. External access with Ingress
+<div align="center">
 
-Instructions
-"Log output" application currently outputs a timestamp and a random string (that it creates on startup) to the logs.
+# 🚀 DevOps with Kubernetes 2026
 
-Add an endpoint to request the current status (timestamp and the random string) and an Ingress so that you can access it with a browser.
+<p align="center">
+  <em>Solutions and practical projects from the DevOps with Kubernetes course</em>
+</p>
 
-You can just store the random string to the memory.
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)](https://kubernetes.io/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
 
-**Solution:** a Node.js app (`log_output/index.js`) that generates a UUID with `crypto.randomUUID()` once on startup and prints it every 5 seconds using `setInterval`. It is deployed with a single-replica `Deployment`.
+</div>
 
-### Deployment
+---
 
-The image is published on Docker Hub: [`arianesec/log-output:1.7`](https://hub.docker.com/r/arianesec/log-output).
+## 📚 Chapter 2: Kubernetes basics
 
+Explore the source code and Kubernetes manifests developed in each part of this chapter:
 
-```bash
-cd log_output
+| Exercise / Version | Quick Description | Tag Link |
+| :--- | :--- | :--- |
+| **1.1** | Getting started | [View Tag 1.1](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.1) |
+| **1.2** | The project, step 1 | [View Tag 1.2](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.2) |
+| **1.3** | Declarative approach | [View Tag 1.3](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.3) |
+| **1.4** | The project, step 2 | [View Tag 1.4](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.4) |
+| **1.5** | The project, step 3 | [View Tag 1.5](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.5) |
+| **1.6** | The project, step 4 | [View Tag 1.6](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.6) |
+| **1.7** | External access with Ingress | [View Tag 1.7](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.7) |
+---
 
-# Deploy
-k3d cluster create -p 8081:80@loadbalancer --agents 2
-kubectl apply -f manifests
-
-# Confirm it's running
-kubectl get pods,svc,ing
-kubectl logs -f deployment/log-output
-```
-
-### Output
-
-```
-$ kubectl get svc,ing
-NAME                     TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
-service/kubernetes       ClusterIP   10.43.0.1       <none>        443/TCP    11m
-service/log-output-svc   ClusterIP   10.43.207.133   <none>        2345/TCP   11m
-
-NAME                                           CLASS    HOSTS   ADDRESS                            PORTS   AGE
-ingress.networking.k8s.io/log-output-ingress   <none>   *       172.18.0.2,172.18.0.3,172.18.0.4   80      11m
-
-```
-
-To build and publish the image:
-
-```bash
-docker build -t arianesec/log-output:1.7 .
-docker push arianesec/log-output:1.7
-```
+<div align="center">
+  <small>Developed with 💙 by <a href="https://github.com/ivanup">ivanup</a></small>
+</div>
