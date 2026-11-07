@@ -1,78 +1,32 @@
-## 1.5. The project, step 3
+<div align="center">
 
-Instructions
-Make the project respond something to a GET request sent to the / url of the project. A simple HTML page is good, or you can deploy something more complex, like a single-page application.
+# 🚀 DevOps with Kubernetes 2026
 
-See here(opens in a new tab) how you can define environment variables for containers.
+<p align="center">
+  <em>Solutions and practical projects from the DevOps with Kubernetes course</em>
+</p>
 
-Use kubectl port-forward to confirm that the project is accessible and works in the cluster by using a browser to access the project.
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)](https://kubernetes.io/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
 
-**Solution:** a Node.js HTTP server (`todo_app/index.js`) that reads `process.env.PORT` (default 3000) and logs `Server started in port NNNN` when it starts listening. The port is set in the `Deployment` through an `env` entry (`PORT=5000`), so it can be changed by editing `manifests/deployment.yaml` and re-applying it, without rebuilding the image.
+</div>
 
-### Deployment
+---
 
-```bash
-cd the_project/todo_app
+## 📚 Chapter 2: Kubernetes basics
 
-# Deploy
-kubectl apply -f manifests/deployment.yaml
+Explore the source code and Kubernetes manifests developed in each part of this chapter:
 
-# Confirm it's running
-kubectl get pods
-kubectl logs -f deployment/todo-app
+| Exercise / Version | Quick Description | Tag Link |
+| :--- | :--- | :--- |
+| **1.1** | Getting started | [View Tag 1.1](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.1) |
+| **1.2** | The project, step 1 | [View Tag 1.2](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.2) |
+| **1.3** | Declarative approach | [View Tag 1.3](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.3) |
+| **1.4** | The project, step 2 | [View Tag 1.4](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.4) |
+| **1.5** | The project, step 3 | [View Tag 1.5](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.5) |
+---
 
-```
-### Output
-
-```
-$ kubectl logs -f deployment/todo-app
-Server started in port 3000
-```
-
-To build and publish the image:
-
-```bash
-docker build -t arianesec/todo-app:1.0 .
-docker push arianesec/todo-app:1.0
-```
-
-### Changing the port
-
-Edit the `env` entry in `manifests/deployment.yaml` and apply it again:
-
-```yaml
-env:
-  - name: PORT
-    value: "6000"
-```
-
-```bash
-kubectl apply -f manifests/deployment.yaml
-kubectl rollout status deployment/todo-app
-```
-
-### Output
-
-```
-$ kubectl logs -f deployment/todo-app
-Server started in port 6000
-```
-
-### Checking access using kubectl port-forward
-
-```
-$ kubectl port-forward todo-app-5875fd6d55-dqnng 6005:6000
-Forwarding from 127.0.0.1:6005 -> 6000
-Forwarding from [::1]:6005 -> 6000
-
-In other terminal
-curl http://localhost:6005
-Todo app
-
-$ kubectl port-forward todo-app-5875fd6d55-dqnng 6005:6000
-Forwarding from 127.0.0.1:6005 -> 6000
-Forwarding from [::1]:6005 -> 6000
-Handling connection for 6005
-Handling connection for 6005
-Handling connection for 6005
-Handling connection for 6005
+<div align="center">
+  <small>Developed with 💙 by <a href="https://github.com/ivanup">ivanup</a></small>
+</div>
