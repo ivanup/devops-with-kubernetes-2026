@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: log-output
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: log-output
+  template:
+    metadata:
+      labels:
+        app: log-output
+    spec:
+      volumes:
+      - name: shared-logs
+        emptyDir: {}
+      containers:
+      - name: log-writer
+        image: arianesec/log-writer:1.10
+        volumeMounts:
+        - name: shared-logs
+          mountPath: /usr/src/app/files          
+      - name: log-reader
+        image: arianesec/log-reader:1.10
+        env:
+        - name: PORT
+          value: "3000"
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+        - name: shared-logs
+          mountPath: /usr/src/app/files
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: log-output-svc
+spec:
+  type: ClusterIP
+  selector:
+    app: log-output
+  ports:
+    - port: 2345
+      protocol: TCP
+      targetPort: 3000
