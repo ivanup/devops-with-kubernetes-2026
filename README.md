@@ -1,58 +1,29 @@
-## 1.2. The project, step 1
+<div align="center">
 
-Instructions
-Let's get started!
+# 🚀 DevOps with Kubernetes 2026
 
-Create a web server that outputs "Server started in port NNNN" when it is started and deploy it into your Kubernetes cluster. Please make it so that an environment variable PORT can be used to choose the used port. You may call the server todo app since it will, amongst other things, provide the functionality of a todo application pretty soon.
+<p align="center">
+  <em>Solutions and practical projects from the DevOps with Kubernetes course</em>
+</p>
 
-You will not have access to the port when it is running in Kubernetes yet. We will configure the access when we get to networking.
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)](https://kubernetes.io/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
 
-**Solution:** a Node.js HTTP server (`todo_app/index.js`) that reads `process.env.PORT` (default 3000) and logs `Server started in port NNNN` when it starts listening. The port is set in the `Deployment` through an `env` entry (`PORT=5000`), so it can be changed by editing `manifests/deployment.yaml` and re-applying it, without rebuilding the image.
+</div>
 
-### Deployment
+---
 
-```bash
-cd the_project/todo_app
+## 📚 Chapter 2: Kubernetes basics
 
-# Deploy
-kubectl apply -f manifests/deployment.yaml
+Explore the source code and Kubernetes manifests developed in each part of this chapter:
 
-# Confirm it's running
-kubectl get pods
-kubectl logs -f deployment/todo-app
+| Exercise / Version | Quick Description | Tag Link |
+| :--- | :--- | :--- |
+| **1.1** | Getting started | [View Tag 1.1](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.1) |
+| **1.2** | The project, step 1 | [View Tag 1.2](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.2) |
+---
 
-```
-### Output
-
-```
-$ kubectl logs -f deployment/todo-app
-Server started in port 3000
-```
-
-To build and publish the image:
-
-```bash
-docker build -t arianesec/todo-app:1.0 .
-docker push arianesec/todo-app:1.0
-```
-
-### Changing the port
-
-Edit the `env` entry in `manifests/deployment.yaml` and apply it again:
-
-```yaml
-env:
-  - name: PORT
-    value: "6000"
-```
-
-```bash
-kubectl apply -f manifests/deployment.yaml
-kubectl rollout status deployment/todo-app
-```
-
-### Output
-
-```
-$ kubectl logs -f deployment/todo-app
-Server started in port 6000
+<div align="center">
+  <small>Developed with 💙 by <a href="https://github.com/ivanup">ivanup</a></small>
+</div>
