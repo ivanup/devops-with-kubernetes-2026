@@ -1,47 +1,35 @@
-## 1.8. The project, step 5
+<div align="center">
 
-Instructions
-Switch to using Ingress instead of NodePort to access the project. You can delete the Ingress of the "Log output" application so they don't interfere with this exercise. We'll look more into paths and routing in the next exercise, and at that point, you can configure the project to run with the "Log output" application side by side.
+# 🚀 DevOps with Kubernetes 2026
 
-### Deployment
+<p align="center">
+  <em>Solutions and practical projects from the DevOps with Kubernetes course</em>
+</p>
 
-The image is published on Docker Hub: [`arianesec/log-output:1.7`](https://hub.docker.com/r/arianesec/log-output).
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)](https://kubernetes.io/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
 
+</div>
 
-```bash
-cd the_project/todo_app
+---
 
-# Deploy
-k3d cluster create -p 8081:80@loadbalancer --agents 2
-kubectl apply -f manifests
+## 📚 Chapter 2: Kubernetes basics
 
-# Confirm it's running
-kubectl get pods,svc,ing
-kubectl logs -f deployment/todo_app
-```
+Explore the source code and Kubernetes manifests developed in each part of this chapter:
 
-### Output
+| Exercise / Version | Quick Description | Tag Link |
+| :--- | :--- | :--- |
+| **1.1** | Getting started | [View Tag 1.1](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.1) |
+| **1.2** | The project, step 1 | [View Tag 1.2](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.2) |
+| **1.3** | Declarative approach | [View Tag 1.3](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.3) |
+| **1.4** | The project, step 2 | [View Tag 1.4](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.4) |
+| **1.5** | The project, step 3 | [View Tag 1.5](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.5) |
+| **1.6** | The project, step 4 | [View Tag 1.6](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.6) |
+| **1.7** | External access with Ingress | [View Tag 1.7](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.7) |
+| **1.8** | The project, step 5 | [View Tag 1.8](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.8) |
+---
 
-```
-$ kubectl get pods,svc,ing
-NAME                            READY   STATUS    RESTARTS   AGE
-pod/todo-app-7c9c74fcb9-rsb48   1/1     Running   0          5m41s
-
-NAME                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
-service/kubernetes     ClusterIP   10.43.0.1       <none>        443/TCP    6h55m
-service/todo-app-svc   ClusterIP   10.43.247.159   <none>        2345/TCP   5m41s
-
-NAME                                         CLASS     HOSTS   ADDRESS                            PORTS   AGE
-ingress.networking.k8s.io/todo-app-ingress   traefik   *       172.18.0.2,172.18.0.3,172.18.0.4   80      5m41s
-
-curl http://localhost:8081
-Todo app
-
-```
-
-To build and publish the image:
-
-```bash
-docker build -t arianesec/todo-app:1.0 .
-docker push arianesec/todo-app:1.0
-```
+<div align="center">
+  <small>Developed with 💙 by <a href="https://github.com/ivanup">ivanup</a></small>
+</div>
