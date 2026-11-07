@@ -46,8 +46,6 @@ kubectl get pods
 kubectl logs -f deployment/todo-app
 
 # Checking access using kubectl port-forward
-
-```
 $ kubectl port-forward todo-app-5875fd6d55-dqnng 6005:6000
 Forwarding from 127.0.0.1:6005 -> 6000
 Forwarding from [::1]:6005 -> 6000
