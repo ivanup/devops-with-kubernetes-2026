@@ -14,15 +14,16 @@ spec:
     spec:
       volumes:
       - name: shared-logs
-        emptyDir: {}
+        persistentVolumeClaim:
+          claimName: shared-pvc
       containers:
       - name: log-writer
-        image: arianesec/log-writer:1.10
+        image: arianesec/log-writer:1.11
         volumeMounts:
         - name: shared-logs
           mountPath: /usr/src/app/files          
       - name: log-reader
-        image: arianesec/log-reader:1.10
+        image: arianesec/log-reader:1.11
         env:
         - name: PORT
           value: "3000"

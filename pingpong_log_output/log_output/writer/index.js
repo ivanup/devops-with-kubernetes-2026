@@ -6,10 +6,15 @@ const id = randomUUID();
 const filePath = path.join('/usr/src/app/files', 'log.txt');
 
 const writeLog = () => {
-    const logLine = `${new Date().toISOString()}: ${id}\n`;
+    const logLine = `${new Date().toISOString()}: ${id}`;
+    
     console.log(logLine.trim());
-    // Escribe el log actual sobre el archivo compartido
-    fs.writeFileSync(filePath, logLine);
+
+    try {
+        fs.writeFileSync(filePath, logLine);
+    } catch (err) {
+        console.error('Error writing log file to shared volume:', err);
+    }
 };
 
 writeLog();
