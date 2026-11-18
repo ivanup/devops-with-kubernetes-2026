@@ -12,9 +12,16 @@ spec:
       labels:
         app: todo-app
     spec:
+      volumes:
+      - name: project-shared-logs
+        persistentVolumeClaim:
+          claimName: project-shared-pvc
       containers:
         - name: todo-app
-          image: arianesec/todo-app:1.2
+          image: arianesec/todo-app:1.12
           env:
             - name: PORT
               value: "6000"
+          volumeMounts:
+            - name: project-shared-logs
+              mountPath: /usr/src/app/files
