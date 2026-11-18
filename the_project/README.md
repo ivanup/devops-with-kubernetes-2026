@@ -49,6 +49,6 @@ kubectl apply -f manifests
 
 # Confirm it's running
 kubectl get pods,svc,ing
-
+```
 # Result
-![Result](./the_project/docs/images/1.12.png)
+![Result](./docs/images/1.12.png)
