@@ -51,4 +51,4 @@ kubectl apply -f manifests
 kubectl get pods,svc,ing
 
 # Result
-![Result](./docs/images/1.12.png)
+![Result](./the_project/docs/images/1.12.png)
