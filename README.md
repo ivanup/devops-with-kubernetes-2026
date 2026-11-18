@@ -32,6 +32,7 @@ Explore the source code and Kubernetes manifests developed in each part of this 
 | **1.10** | Even more services | [View Tag 1.10](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.10) |
 | **1.11** | Persisting data | [View Tag 1.11](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.11) |
 | **1.12** | The project, step 6 | [View Tag 1.12](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.12) |
+| **1.13** | The project, step 7 | [View Tag 1.13](https://github.com/ivanup/devops-with-kubernetes-2026/tree/1.13) |
 
 ---
 

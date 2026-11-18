@@ -18,7 +18,7 @@ spec:
           claimName: project-shared-pvc
       containers:
         - name: todo-app
-          image: arianesec/todo-app:1.12
+          image: arianesec/todo-app:1.13
           env:
             - name: PORT
               value: "6000"
