@@ -20,7 +20,7 @@ Connect the Log output application and the Ping pong application with HTTP. So, 
 
 Published on Docker Hub:
 - [`arianesec/log-output:2.1`](https://hub.docker.com/r/arianesec/log-output)
-- [`arianesec/pingpong:2.1`](https://hub.docker.com/r/arianesec/arianesec/pingpong)
+- [`arianesec/pingpong:2.1`](https://hub.docker.com/r/arianesec/pingpong)
 ---
 
 ## 🛠️ Deployment & Execution
