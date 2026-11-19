@@ -36,6 +36,16 @@ Explore the source code and Kubernetes manifests developed in each part of this 
 
 ---
 
+## 📚 Chapter 3: More building blocks
+
+Explore the source code and Kubernetes manifests developed in each part of this chapter:
+
+| Exercise / Version | Quick Description | Tag Link |
+| :--- | :--- | :--- |
+| **2.1** | Connecting pods | [View Tag 2.1](https://github.com/ivanup/devops-with-kubernetes-2026/tree/2.1) |
+
+---
+
 <div align="center">
   <small>Developed with 💙 by <a href="https://github.com/ivanup">ivanup</a></small>
 </div>
